@@ -47,6 +47,7 @@ jobs:
         cmake ../build/cmake \
           -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
           -DANDROID_ABI=${{ matrix.arch.android_abi }} \
+          -DCMAKE_C_FLAGS="-fPIC" \
           -DANDROID_PLATFORM=android-28 \
           -DCMAKE_BUILD_TYPE=Release
         cmake --build . --parallel
