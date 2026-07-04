@@ -50,3 +50,8 @@ jobs:
           -DANDROID_PLATFORM=android-28 \
           -DCMAKE_BUILD_TYPE=Release
         cmake --build . --parallel
+        
+    - name: finding .so and .a
+      run: |
+       find . -name "*.so"
+       find . -name "*.a"
