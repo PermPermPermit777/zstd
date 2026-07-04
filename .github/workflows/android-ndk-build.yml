@@ -29,6 +29,12 @@ jobs:
           - name: 'arm64-v8a'
             abi: 'arm64-v8a'
             android_abi: 'arm64-v8a'
+          - name: 'builddebugtype'
+            abi: 'Debug'
+            buildtype: 'Debug'
+          - name: 'buildreleasetype'
+            type: 'Release'
+            buildtype: 'Release'
 
     steps:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # tag=v6.0.2
@@ -52,7 +58,7 @@ jobs:
           -DANDROID_ABI=${{ matrix.arch.android_abi }} \
           -DCMAKE_C_FLAGS="-fPIC" \
           -DANDROID_PLATFORM=android-28 \
-          -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_BUILD_TYPE=${{ matrix.arch.buildtype }}
         cmake --build . --parallel
         
     - name: finding .so and .a
