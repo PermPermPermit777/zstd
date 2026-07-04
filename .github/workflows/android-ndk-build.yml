@@ -39,19 +39,6 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@651bceb6f9ca583f16b8d75b62c36ded2ae6fc9c # v4.0.0
 
-    - name: Install Android NDK
-      run: |
-        sdkmanager --install "ndk;27.0.12077973"
-        echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/27.0.12077973" >> $GITHUB_ENV
-
-    - name: Build with NDK
-      run: |
-        export PATH=$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH
-        make CC=aarch64-linux-android21-clang \
-             AR=llvm-ar \
-             RANLIB=llvm-ranlib \
-             STRIP=llvm-strip
-
     - name: Build with CMake and NDK
       run: |
         mkdir -p build-android
