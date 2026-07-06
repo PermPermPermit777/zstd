@@ -40,14 +40,14 @@ jobs:
         distribution: 'temurin'
 
     - name: Setup Android SDK
-      uses: android-actions/setup-android@651bceb6f9ca583f16b8d75b62c36ded2ae6fc9c # v4.0.0
+      uses: android-actions/setup-android@v4.0.1
 
     - name: Build with CMake and NDK
       run: |
         mkdir -p build-android
         cd build-android
         cmake --version
-        cmake ../build/cmake \
+        cmake -S ../build/cmake \
           -DCMAKE_TOOLCHAIN_FILE=$ANDROID_NDK_HOME/build/cmake/android.toolchain.cmake \
           -DANDROID_ABI=${{ matrix.arch.android_abi }} \
           -DANDROID_PLATFORM=android-28 \
@@ -57,14 +57,12 @@ jobs:
 
     - name: finding .so and .a
       run: |
-       find . -name "*.so"
        find . -name "*.a"
        
     - name: uploading artifact ${{ matrix.arch.name }}
       if: success()
       uses: actions/upload-artifact@v7.0.1
       with:
-          name: android-${{ matrix.arch.abi }}-artifacts
+          name: android-${{ matrix.arch.abi }}-artifacts-debug
           path: |
-            ./build-android/lib/libzstd.so
             ./build-android/lib/libzstd.a
