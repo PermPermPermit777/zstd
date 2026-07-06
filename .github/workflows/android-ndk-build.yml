@@ -57,15 +57,13 @@ jobs:
 
     - name: finding .so and .a
       run: |
-       find . -name "*.so"
        find . -name "*.a"
        
     - name: uploading artifact ${{ matrix.arch.name }}
       if: success()
       uses: actions/upload-artifact@v7.0.1
       with:
-          name: android-${{ matrix.arch.abi }}-artifacts
+          name: android-${{ matrix.arch.abi }}-artifacts-release
           path: |
-            ./build-android/lib/libzstd.so
             ./build-android/lib/libzstd.a
             
